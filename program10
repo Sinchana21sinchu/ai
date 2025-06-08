@@ -1,4 +1,5 @@
 !pip install langchain
+import requests
 from langchain.docstore.document import Document  # Not used in the code, can be removed if unnecessary
 
 def download_ipc():
