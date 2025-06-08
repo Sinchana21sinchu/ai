@@ -1,0 +1,22 @@
+# Dictionary of themes and their related words
+d = {
+    "adventure": ["journey", "exploration", "quest"],
+    "robot": ["machine", "automation", "mechanism"],
+    "forest": ["woods", "jungle", "wilderness"],
+    "ocean": ["sea", "waves", "depths"],
+    "magic": ["spell", "wizardry", "enchantment"]
+}
+
+# Function to generate a short story paragraph
+def para(w):
+    s = d.get(w)
+    if not s:
+        return f"Sorry, I couldn't find similar words for '{w}'."
+    return (
+        f"Once upon a time, there was a great {w}. "
+        f"It was full of {', '.join(s[:-1])}, and {s[-1]}. "
+        f"Everyone who experienced this {w} always remembered it as a remarkable tale."
+    )
+
+# Example usage
+print("Generated Paragraph:\n" + para("robot"))
