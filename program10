@@ -1,0 +1,56 @@
+!pip install langchain
+from langchain.docstore.document import Document  # Not used in the code, can be removed if unnecessary
+
+def download_ipc():
+    ipc_url = "http://localhost:8888/files/OneDrive/Desktop/indian_penal_code?_xsrf=2%7C275c4961%7C9b737f809fe5d0a29902b4b258e5b041%7C1748239770"
+    ipc_file = "indian_penal_code.txt"
+    print("Downloading IPC text file...")
+    response = requests.get(ipc_url)
+    with open(ipc_file, "w", encoding="utf-8") as f:
+        f.write(response.text)
+    print("Download complete!\n")
+
+def main():
+    download_ipc()
+
+    qa_pairs = [
+        {
+            "question": "What is Section 302 of IPC?",
+            "answer": "Section 302: Punishment for murder. Whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine."
+        },
+        {
+            "question": "What does Section 420 say?",
+            "answer": "Section 420: Cheating and dishonestly inducing delivery of property. Punishable with imprisonment up to seven years and fine."
+        },
+        {
+            "question": "Explain Section 375.",
+            "answer": "Section 375: Defines rape and circumstances under which sexual intercourse without consent amounts to rape."
+        }
+    ]
+
+    print("Indian Penal Code Chatbot (Simple Q&A)")
+    print("Choose a question by typing its number (or 'exit' to quit):")
+
+    while True:
+        for idx, qa in enumerate(qa_pairs, start=1):
+            print(f"{idx}. {qa['question']}")
+        
+        choice = input("\nYour choice: ").strip()
+
+        if choice.lower() == "exit":
+            print("Goodbye!")
+            break
+
+        if choice.isdigit():
+            choice_num = int(choice)
+            if 1 <= choice_num <= len(qa_pairs):
+                selected = qa_pairs[choice_num - 1]
+                print(f"\nAnswer:\n{selected['answer']}\n{'-'*50}\n")
+            else:
+                print("Invalid number. Please enter a number from the list.")
+        else:
+            print("Invalid input. Please enter the number corresponding to your question.")
+
+# FIXED THIS LINE
+if __name__ == "__main__":  
+    main()
